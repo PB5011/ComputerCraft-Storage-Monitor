@@ -1,15 +1,19 @@
-test = 0
+itemCount = 0
+-- May need to change the number on "tile_#". Appears it changes.
 p = peripheral.wrap("toms_storage:ts.inventory_connector.tile_1")
+--May need to change monitor value as well. Can also make it wrap a direction instead.
 monitor = peripheral.wrap("monitor_0")
 
-while test < 10000000000  do 
+while itemCount < 10000000000  do 
     for _ in pairs(p.list()) do
-        test = test + 1
+        itemCount = itemCount + 1
     end
+    -- This was made with 2x2 advanced monitors. Will probably need to resize font based on # of monitors
     monitor.clear()
     monitor.setCursorPos(1,1) 
-    spaceLeft = p.size()  - test
+    spaceLeft = p.size()  - itemCount
     monitor.write("Storage left: " ..  spaceLeft)
+    -- This will make it check every 30 seconds. Change this for less impact. I used 150 seconds so it was still often but not as impactful.
     local count = 30
     while count > -1  do
         monitor.setCursorPos(1,2)
@@ -20,5 +24,5 @@ while test < 10000000000  do
         count = count - 1
         sleep(1)
     end   
-    test = 0
+    itemCount = 0
 end
